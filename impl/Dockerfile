@@ -52,7 +52,7 @@ WORKDIR /tmp/dnaasm/impl
 
 RUN find /usr/include -name pyconfig.h
 
-RUN scons
+RUN scons -j$(nproc)
 
 RUN cp cpp/dnaasm /usr/local/bin/dnaasm
 

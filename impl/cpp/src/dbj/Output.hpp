@@ -8,6 +8,7 @@
 #define OUTPUT_HPP
 
 #include <fstream>
+#include <iostream>
 #include "Statistics.hpp"
 #include "ResultantSequencesGenerator.hpp"
 #include "../common/log.hpp"
@@ -111,12 +112,14 @@ namespace dnaasm { namespace dbj {
         * \return returns void
         */
         void logSequencesStatistics() {
-            logInfo("num of sequences: " + std::to_string(boost::get<unsigned long>(statistics_.get(Statistics::Key::NUM_OF_SEQUENCES))));
-            logInfo("sum: " + std::to_string(boost::get<unsigned long>(statistics_.get(Statistics::Key::SUM_SEQUENCES_SIZE))));
-            logInfo("max: " + std::to_string(boost::get<unsigned long>(statistics_.get(Statistics::Key::MAX_SEQUENCE_SIZE))));
-            logInfo("average: " + std::to_string(boost::get<float>(statistics_.get(Statistics::Key::AVG_SEQUENCE_SIZE))));
-            logInfo("median: " + std::to_string(boost::get<float>(statistics_.get(Statistics::Key::MEDIAN_SEQUENCE_SIZE))));
-            logInfo("N50: " + std::to_string(boost::get<unsigned long>(statistics_.get(Statistics::Key::N50_SEQUENCE_SIZE))));
+            std::cerr << "---" << std::endl;
+            std::cerr << "num of sequences: " << boost::get<unsigned long>(statistics_.get(Statistics::Key::NUM_OF_SEQUENCES)) << std::endl;
+            std::cerr << "sum: " << boost::get<unsigned long>(statistics_.get(Statistics::Key::SUM_SEQUENCES_SIZE)) << std::endl;
+            std::cerr << "max: " << boost::get<unsigned long>(statistics_.get(Statistics::Key::MAX_SEQUENCE_SIZE)) << std::endl;
+            std::cerr << "average: " << boost::get<float>(statistics_.get(Statistics::Key::AVG_SEQUENCE_SIZE)) << std::endl;
+            std::cerr << "median: " << boost::get<float>(statistics_.get(Statistics::Key::MEDIAN_SEQUENCE_SIZE)) << std::endl;
+            std::cerr << "N50: " << boost::get<unsigned long>(statistics_.get(Statistics::Key::N50_SEQUENCE_SIZE)) << std::endl;
+            std::cerr << "---" << std::endl;
         }
 
     };
