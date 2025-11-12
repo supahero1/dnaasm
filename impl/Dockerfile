@@ -8,30 +8,15 @@ RUN apt-get install -y -q \
     g++ scons git \
     libpq-dev libsparsehash-dev \
     wget cmake \
-    python3 python3-pip python3-dev
-
-WORKDIR /tmp
-
-RUN wget https://archives.boost.io/release/1.65.0/source/boost_1_65_0.tar.gz
-#RUN wget https://dl.bintray.com/boostorg/release/1.65.0/source/boost_1_65_0.tar.gz
-
-RUN tar -xzf boost_1_65_0.tar.gz
-
-WORKDIR /tmp/boost_1_65_0
-
-RUN ./bootstrap.sh --with-python=python3
-
-RUN ./b2 -j8
-
-RUN cp -r boost /usr/local/include
-
-RUN cp -r stage/lib/* /usr/local/lib
+    python3 python3-pip python3-dev \
+    zlib1g-dev \
+    libboost-all-dev
 
 WORKDIR /tmp
 
 RUN wget http://sourceforge.net/projects/mt4cpp/files/0.03/mt4cpp_0.3.76-1.tar.gz
 
-RUN tar -xzf mt4cpp_0.3.76-1.tar.gz 
+RUN tar -xzf mt4cpp_0.3.76-1.tar.gz
 
 RUN mv mt4* /usr/local/include
 
@@ -51,7 +36,7 @@ RUN mkdir build; \
 
 WORKDIR /tmp
 
-RUN git clone https://github.com/wkusmirek/dnaasm.git
+COPY . /tmp/dnaasm/impl
 
 WORKDIR /tmp/dnaasm/impl
 

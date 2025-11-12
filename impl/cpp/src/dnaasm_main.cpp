@@ -68,8 +68,11 @@ int main(int argc, const char* argv [])
     }
 
     cout << "PROGRESS: " << endl;
-    cmdmgr.setCommandObserver(cmdId, PCommandObserver(new OstreamCommandObserver(cout)));
 
+    stringstream progressStream;
+    cmdmgr.setCommandObserver(cmdId, PCommandObserver(new OstreamCommandObserver(progressStream)));
+
+    int lastPercentage = -1;
     while(true) {
         CommandDesc::State cmdState = cmdmgr.findCommandDesc(cmdId).state_;
         if (cmdState != CommandDesc::State::PENDING) {
@@ -85,6 +88,23 @@ int main(int argc, const char* argv [])
                 break;
             }
         }
+
+        string line;
+        while (getline(progressStream, line)) {
+            if (!line.empty()) {
+                try {
+                    int percentage = stoi(line);
+                    if (percentage != lastPercentage) {
+                        cout << "\r" << percentage << "%" << flush;
+                        lastPercentage = percentage;
+                    }
+                } catch (...) {
+                    // If not a number, just skip it
+                }
+            }
+        }
+        progressStream.clear();
+
         this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 

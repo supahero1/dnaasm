@@ -15,10 +15,10 @@ lib_name = 'dnaasm_common'
 env_dll = env.Clone()
 
 if(platform.system() == "Linux"):
-   env_dll.Prepend( LIBS = [ 'boost_thread', 'boost_iostreams', 'boost_regex', 'boost_log', 'boost_system', 'boost_filesystem' ] )
+   env_dll.Prepend( LIBS = [ 'boost_thread', 'boost_iostreams', 'boost_regex', 'boost_log', 'boost_system', 'boost_filesystem', 'z' ] )
 
 elif(platform.system() == "Darwin"):
-   env_dll.Prepend( LIBS = [ 'boost_thread-mt', 'boost_iostreams', 'boost_log-mt', 'boost_regex', 'boost_system' ] )
+   env_dll.Prepend( LIBS = [ 'boost_thread-mt', 'boost_iostreams', 'boost_log-mt', 'boost_regex', 'boost_system', 'z' ] )
 
 elif(platform.system() == "Windows"):
    env_dll.Append( CPPFLAGS = ' /D "CALC_EXPORTS" /W4 ' )

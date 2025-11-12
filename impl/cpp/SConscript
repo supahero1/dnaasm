@@ -93,9 +93,9 @@ env_app = env.Clone()
 env_app.Append( CPPDEFINES=['MAX_KMER_LENGTH='+MAX_KMER_LENGTH] )
 
 if(platform.system() == "Linux"):
-   env_app.Prepend( LIBS = ['dnaasm_dbj', 'dnaasm_bst', 'dnaasm_common', 'dnaasm_olc', 'dnaasm_scfr', 'dnaasm', 'boost_system', 'boost_thread'] )
+   env_app.Prepend( LIBS = ['dnaasm_dbj', 'dnaasm_bst', 'dnaasm_common', 'dnaasm_olc', 'dnaasm_scfr', 'dnaasm', 'boost_system', 'boost_thread', 'boost_iostreams'] )
 elif(platform.system() == "Darwin"):
-   env_app.Prepend( LIBS = ['dnaasm_dbj', 'dnaasm_bst', 'dnaasm_common', 'dnaasm_olc', 'dnaasm_scfr', 'dnaasm', 'boost_log', 'boost_thread-mt', 'boost_system', 'boost_regex'])
+   env_app.Prepend( LIBS = ['dnaasm_dbj', 'dnaasm_bst', 'dnaasm_common', 'dnaasm_olc', 'dnaasm_scfr', 'dnaasm', 'boost_log', 'boost_thread-mt', 'boost_system', 'boost_regex', 'boost_iostreams'])
 elif(platform.system() == "Windows"):
    env_app.Prepend( LIBS = ['dnaasm_dbj', 'dnaasm_bst', 'dnaasm_common', 'dnaasm_olc', 'dnaasm_scfr', 'dnaasm'])
 else:

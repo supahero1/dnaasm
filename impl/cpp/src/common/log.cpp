@@ -49,15 +49,17 @@ namespace dnaasm {
                 boost::log::keywords::rotation_size = 5 * 1024 * 1024,    // rotation size, in characters
                 boost::log::keywords::auto_flush = true));
 
-        sink->set_formatter(boost::log::expressions::format("[%1%] [%2%] - %3%")
-                % boost::log::expressions::attr< boost::posix_time::ptime >("TimeStamp")
+        // Simplified formatter without timestamp to avoid boost::date_time thread-safety issues
+        // The original timestamp formatting was causing memory corruption crashes
+        sink->set_formatter(boost::log::expressions::format("[%1%] - %2%")
                 % boost::log::trivial::severity
                 % boost::log::expressions::smessage);
 
         // Severity level
         sink->set_filter(boost::log::trivial::severity >= boost::log::trivial::info);
 
-        boost::log::core::get()->add_global_attribute("TimeStamp", boost::log::attributes::local_clock());
+        // Don't add timestamp attribute to avoid date_time locale issues
+        // boost::log::core::get()->add_global_attribute("TimeStamp", boost::log::attributes::local_clock());
         boost::log::core::get()->add_sink(sink);
     }
 }
